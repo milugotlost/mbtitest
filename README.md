@@ -1,5 +1,7 @@
 # 🌌 MBTI 宇宙 (MBTI Universe)
 
+![GitHub Pages](https://github.com/milugotlost/mbtitest/actions/workflows/pages/pages-build-deployment/badge.svg)
+
 > 探索你的內在宇宙，發現屬於你的人格星座。
 
 ![MBTI Universe Homepage](screenshots/homepage.png)
