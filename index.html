@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="探索你的 MBTI 人格類型 - 最詳細的 16 型人格分析，包含職業建議、人際關係、認知功能深度解析">
+    <meta name="keywords" content="MBTI, 人格測驗, 16型人格, INTJ, ENFP, 心理測驗, 人格分析">
+    <title>MBTI 宇宙 | 探索你的人格星座</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <!-- 星空粒子背景 -->
+    <canvas id="starfield"></canvas>
+
+    <!-- 導航列 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">MBTI 宇宙</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active" data-section="home">首頁</a>
+                <a href="#test" class="nav-link" data-section="test">開始測驗</a>
+                <a href="#types" class="nav-link" data-section="types">人格圖鑑</a>
+                <a href="#compare" class="nav-link" data-section="compare">類型比較</a>
+                <a href="#stats" class="nav-link" data-section="stats">統計數據</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="開關選單">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要內容區域 -->
+    <main id="main-content">
+
+        <!-- ========== 首頁區塊 ========== -->
+        <section id="home" class="section section-home active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">✧ 探索你的內在宇宙 ✧</div>
+                    <h1 class="hero-title">
+                        <span class="title-line">發現你的</span>
+                        <span class="title-line title-accent">人格星座</span>
+                    </h1>
+                    <p class="hero-description">
+                        透過最精確的 60 題 MBTI 測驗，揭開你獨特的人格面紗。
+                        深入了解你的優勢、挑戰、理想職業與人際關係模式。
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-glow" data-navigate="test">
+                            <span class="btn-icon">🚀</span>
+                            開始測驗
+                        </button>
+                        <button class="btn btn-secondary" data-navigate="types">
+                            <span class="btn-icon">🌌</span>
+                            探索 16 型人格
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 人格類型預覽 -->
+                <div class="hero-preview">
+                    <div class="type-constellation">
+                        <div class="constellation-ring ring-1"></div>
+                        <div class="constellation-ring ring-2"></div>
+                        <div class="constellation-ring ring-3"></div>
+                        <div class="type-orbs" id="typeOrbs"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 四大維度介紹 -->
+            <div class="dimensions-section">
+                <h2 class="section-title">MBTI 四大維度</h2>
+                <div class="dimensions-grid">
+                    <div class="dimension-card" data-dimension="EI">
+                        <div class="dimension-header">
+                            <span class="dimension-icon">🔋</span>
+                            <h3>能量來源</h3>
+                        </div>
+                        <div class="dimension-poles">
+                            <div class="pole pole-left">
+                                <span class="pole-letter">E</span>
+                                <span class="pole-name">外向</span>
+                                <p>從與人互動中獲得能量</p>
+                            </div>
+                            <div class="pole-vs">vs</div>
+                            <div class="pole pole-right">
+                                <span class="pole-letter">I</span>
+                                <span class="pole-name">內向</span>
+                                <p>從獨處與反思中獲得能量</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dimension-card" data-dimension="SN">
+                        <div class="dimension-header">
+                            <span class="dimension-icon">👁️</span>
+                            <h3>認知方式</h3>
+                        </div>
+                        <div class="dimension-poles">
+                            <div class="pole pole-left">
+                                <span class="pole-letter">S</span>
+                                <span class="pole-name">感覺</span>
+                                <p>關注具體事實與細節</p>
+                            </div>
+                            <div class="pole-vs">vs</div>
+                            <div class="pole pole-right">
+                                <span class="pole-letter">N</span>
+                                <span class="pole-name">直覺</span>
+                                <p>關注可能性與大局</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dimension-card" data-dimension="TF">
+                        <div class="dimension-header">
+                            <span class="dimension-icon">⚖️</span>
+                            <h3>決策方式</h3>
+                        </div>
+                        <div class="dimension-poles">
+                            <div class="pole pole-left">
+                                <span class="pole-letter">T</span>
+                                <span class="pole-name">思考</span>
+                                <p>依據邏輯與客觀分析</p>
+                            </div>
+                            <div class="pole-vs">vs</div>
+                            <div class="pole pole-right">
+                                <span class="pole-letter">F</span>
+                                <span class="pole-name">情感</span>
+                                <p>依據價值觀與人際和諧</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dimension-card" data-dimension="JP">
+                        <div class="dimension-header">
+                            <span class="dimension-icon">📅</span>
+                            <h3>生活方式</h3>
+                        </div>
+                        <div class="dimension-poles">
+                            <div class="pole pole-left">
+                                <span class="pole-letter">J</span>
+                                <span class="pole-name">判斷</span>
+                                <p>偏好計劃與結構</p>
+                            </div>
+                            <div class="pole-vs">vs</div>
+                            <div class="pole pole-right">
+                                <span class="pole-letter">P</span>
+                                <span class="pole-name">感知</span>
+                                <p>偏好彈性與隨興</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 測驗區塊 ========== -->
+        <section id="test" class="section section-test">
+            <div class="test-container">
+                <!-- 測驗開始畫面 -->
+                <div class="test-intro" id="testIntro">
+                    <div class="test-intro-content">
+                        <div class="test-icon">🔮</div>
+                        <h2>MBTI 人格測驗</h2>
+                        <p>這份測驗包含 60 道題目，預計需要 10-15 分鐘完成。<br>請依據你的第一直覺作答，選擇最符合你日常狀態的選項。</p>
+                        <div class="test-tips">
+                            <div class="tip">
+                                <span class="tip-icon">💡</span>
+                                <span>沒有對錯之分，誠實作答即可</span>
+                            </div>
+                            <div class="tip">
+                                <span class="tip-icon">⏱️</span>
+                                <span>不要過度思考，相信直覺</span>
+                            </div>
+                            <div class="tip">
+                                <span class="tip-icon">🎯</span>
+                                <span>想像日常情境，而非理想狀態</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-glow btn-large" id="startTestBtn">
+                            開始探索
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 測驗進行中 -->
+                <div class="test-active hidden" id="testActive">
+                    <!-- 進度條 -->
+                    <div class="test-progress">
+                        <div class="progress-info">
+                            <span class="progress-current" id="progressCurrent">1</span>
+                            <span class="progress-separator">/</span>
+                            <span class="progress-total">60</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                            <div class="progress-glow"></div>
+                        </div>
+                        <div class="progress-dimension" id="progressDimension">能量來源</div>
+                    </div>
+
+                    <!-- 題目卡片 -->
+                    <div class="question-container">
+                        <div class="question-card" id="questionCard">
+                            <div class="question-number" id="questionNumber">Q1</div>
+                            <p class="question-text" id="questionText">在社交場合中，你更傾向於...</p>
+                            <div class="options" id="options">
+                                <button class="option-btn" data-value="A">
+                                    <span class="option-letter">A</span>
+                                    <span class="option-text">主動與人交談，認識新朋友</span>
+                                </button>
+                                <button class="option-btn" data-value="B">
+                                    <span class="option-letter">B</span>
+                                    <span class="option-text">等待他人來搭話，或與熟人待在一起</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 導航按鈕 -->
+                    <div class="test-navigation">
+                        <button class="btn btn-ghost" id="prevQuestion" disabled>
+                            ← 上一題
+                        </button>
+                        <button class="btn btn-ghost" id="skipQuestion">
+                            跳過 →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 測驗結果 -->
+                <div class="test-result hidden" id="testResult">
+                    <div class="result-card">
+                        <div class="result-celebration">🎉</div>
+                        <h2 class="result-greeting">測驗完成！</h2>
+                        <p class="result-intro">根據你的回答，你的人格類型是：</p>
+
+                        <div class="result-type" id="resultType">
+                            <span class="type-code">INTJ</span>
+                            <span class="type-name">策略家</span>
+                        </div>
+
+                        <div class="result-dimensions" id="resultDimensions">
+                            <div class="result-dimension">
+                                <div class="dim-labels">
+                                    <span>E 外向</span>
+                                    <span>I 內向</span>
+                                </div>
+                                <div class="dim-bar">
+                                    <div class="dim-fill" style="width: 75%; margin-left: 50%;"></div>
+                                    <div class="dim-center"></div>
+                                </div>
+                                <div class="dim-percent">75% I</div>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button class="btn btn-primary" id="viewDetailBtn">
+                                查看詳細分析
+                            </button>
+                            <button class="btn btn-secondary" id="retakeTestBtn">
+                                重新測驗
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 人格圖鑑區塊 ========== -->
+        <section id="types" class="section section-types">
+            <div class="types-header">
+                <h2 class="section-title">16 型人格圖鑑</h2>
+                <p class="section-subtitle">點擊任一類型，探索其獨特的人格特質</p>
+
+                <!-- 篩選器 -->
+                <div class="types-filter">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="analyst">分析家 NT</button>
+                    <button class="filter-btn" data-filter="diplomat">外交家 NF</button>
+                    <button class="filter-btn" data-filter="sentinel">守護者 SJ</button>
+                    <button class="filter-btn" data-filter="explorer">探險家 SP</button>
+                </div>
+            </div>
+
+            <!-- 類型網格 -->
+            <div class="types-grid" id="typesGrid">
+                <!-- 動態生成 16 種類型卡片 -->
+            </div>
+
+            <!-- 類型詳情模態框 -->
+            <div class="type-modal" id="typeModal">
+                <div class="modal-backdrop"></div>
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">✕</button>
+                    <div class="modal-body" id="modalBody">
+                        <!-- 動態載入類型詳情 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 類型比較區塊 ========== -->
+        <section id="compare" class="section section-compare">
+            <h2 class="section-title">人格類型比較</h2>
+            <p class="section-subtitle">選擇兩種類型，深入比較它們的異同</p>
+
+            <div class="compare-container">
+                <div class="compare-selectors">
+                    <div class="compare-select">
+                        <label>類型 A</label>
+                        <select id="compareTypeA" class="type-select">
+                            <option value="">選擇類型...</option>
+                        </select>
+                        <div class="selected-type" id="selectedTypeA"></div>
+                    </div>
+
+                    <div class="compare-vs">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="compare-select">
+                        <label>類型 B</label>
+                        <select id="compareTypeB" class="type-select">
+                            <option value="">選擇類型...</option>
+                        </select>
+                        <div class="selected-type" id="selectedTypeB"></div>
+                    </div>
+                </div>
+
+                <div class="compare-result hidden" id="compareResult">
+                    <!-- 動態生成比較結果 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 統計數據區塊 ========== -->
+        <section id="stats" class="section section-stats">
+            <h2 class="section-title">人格類型統計</h2>
+            <p class="section-subtitle">了解各類型在人群中的分布比例</p>
+
+            <div class="stats-grid">
+                <!-- 人口分布圖 -->
+                <div class="stats-card stats-distribution">
+                    <h3>全球人格類型分布</h3>
+                    <div class="chart-container">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 稀有度排名 -->
+                <div class="stats-card stats-rarity">
+                    <h3>類型稀有度排名</h3>
+                    <div class="rarity-list" id="rarityList">
+                        <!-- 動態生成 -->
+                    </div>
+                </div>
+
+                <!-- 認知功能圖 -->
+                <div class="stats-card stats-functions">
+                    <h3>認知功能解析</h3>
+                    <p class="stats-description">每種人格類型都有獨特的認知功能堆疊，決定了他們如何感知世界和做出決策。</p>
+                    <div class="functions-diagram" id="functionsDiagram">
+                        <!-- 動態生成 -->
+                    </div>
+                </div>
+
+                <!-- 有趣數據 -->
+                <div class="stats-card stats-facts">
+                    <h3>有趣的 MBTI 數據</h3>
+                    <div class="facts-list">
+                        <div class="fact-item">
+                            <span class="fact-icon">👤</span>
+                            <div class="fact-content">
+                                <div class="fact-value">ISFJ</div>
+                                <div class="fact-label">最常見的人格類型</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <span class="fact-icon">💎</span>
+                            <div class="fact-content">
+                                <div class="fact-value">INFJ</div>
+                                <div class="fact-label">最稀有的人格類型</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <span class="fact-icon">♀️</span>
+                            <div class="fact-content">
+                                <div class="fact-value">66%</div>
+                                <div class="fact-label">女性偏好 F (情感)</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <span class="fact-icon">♂️</span>
+                            <div class="fact-content">
+                                <div class="fact-value">56%</div>
+                                <div class="fact-label">男性偏好 T (思考)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                ✦ MBTI 宇宙 - 探索你的人格星座 ✦
+            </p>
+            <p class="footer-disclaimer">
+                本網站僅供娛樂與自我探索用途，MBTI 為 Myers-Briggs Type Indicator 的縮寫。
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/types.js"></script>
+    <script src="js/test.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
